@@ -14,4 +14,10 @@ class City {
     public Double distanceTo(City otherCity) {
         return this.coord.distance(otherCity.coord)
     }
+
+    public Integer supply(Integer capacity) {
+        capacity -= demand
+        demand = 0
+        return capacity
+    }
 }
