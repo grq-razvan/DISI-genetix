@@ -7,17 +7,27 @@ import javafx.geometry.Point2D
  */
 class City {
     Integer id
-    Point2D coord
+    Point2D coords
     Boolean depot = false
     Integer demand
 
     public Double distanceTo(City otherCity) {
-        return this.coord.distance(otherCity.coord)
+        return this.coords.distance(otherCity.coords)
     }
 
-    public Integer supply(Integer capacity) {
-        capacity -= demand
-        demand = 0
-        return capacity
+    public void clearDemand() {
+        if (demand) {
+            demand = 0
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        """ID: ${id}
+           Coords: (${coords.x}, ${coords.y})
+           Is depot: ${depot}
+           Demand: ${demand}
+        """
     }
 }
