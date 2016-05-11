@@ -21,7 +21,6 @@ class City {
         }
     }
 
-
     @Override
     public String toString() {
         """ID: ${id}
