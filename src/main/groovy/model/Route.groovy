@@ -21,7 +21,7 @@ class Route {
     }
 
     void addCity(City city) {
-        cities = cities.subList(0, cities.size()-1) + [city] + cities.last()
+        cities = cities.subList(0, cities.size() - 1) + [city] + cities.last()
     }
 
     public Double getCost() {
@@ -36,19 +36,21 @@ class Route {
     }
 
     public getLength() {
-        return cities.size()
+        return cities?.size()
     }
+
     @Override
     String toString() {
-        if (!cities.empty) {
-            String result = "["
-            cities.each {
-                result << it.id + ", "
+        new StringBuilder().with {
+            if (cities.empty) {
+                append """This route has no cities.\n"""
+            } else {
+                append """Route cost: ${this.cost}\n"""
+                append """Route cities: ${this.cities.collect { city -> city.id }}"""
             }
-            result.substring(0, result.length() - 2) << "]"
-        }
+            return it
+        }.toString()
 
-        "This route has no cities."
     }
 
     private void initializeCities() {

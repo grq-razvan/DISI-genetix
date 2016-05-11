@@ -23,10 +23,13 @@ class City {
 
     @Override
     public String toString() {
-        """ID: ${id}
-           Coords: (${coords.x}, ${coords.y})
-           Is depot: ${depot}
-           Demand: ${demand}
-        """
+        new StringBuilder().with {
+            append """City: ${id}\n"""
+            append """Coords: (${coords.x}, ${coords.y})\n"""
+            if (depot) {
+                append """Depot: yes\n"""
+            } else append """Demand: ${demand}\n"""
+            return it
+        }.toString()
     }
 }

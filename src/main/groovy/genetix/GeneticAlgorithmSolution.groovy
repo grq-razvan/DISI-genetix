@@ -2,29 +2,34 @@ package genetix
 
 import configuration.Config
 import model.Solution
+import utils.GeneticUtils
 
 /**
  * Uncreated by stefangrecu on 11/05/16.
  */
 class GeneticAlgorithmSolution {
 
-    List<Solution> initializePopulation() {
+    static List<Solution> initializePopulation() {
         return []
     }
 
-    List<Solution> parentSelection(List<Solution> population) {
+    static List<Solution> parentSelection(List<Solution> population) {
+        GeneticUtils.survivalOfTheFitest([])
         return []
     }
 
-    List<Solution> variation(List<Solution> parents) {
+    static List<Solution> variation(List<Solution> parents) {
+        GeneticUtils.cross([])
+        GeneticUtils.mutate(null)
         return []
     }
 
-    List<Solution> selectOffspring(List<Solution> newGeneration) {
+    static List<Solution> selectOffspring(List<Solution> newGeneration) {
+        GeneticUtils.survivalOfTheFitest([])
         return []
     }
 
-    Map solve() {
+    static Map generationMap() {
         def solutionMap = [:]
         Config.restarts.each { restart ->
             restart.times {
@@ -35,7 +40,7 @@ class GeneticAlgorithmSolution {
                         List<Solution> offspring = variation(parents)
                         population = selectOffspring(offspring)
                     }
-                    solutionMap << [[restart, iteration]: population]
+                    solutionMap.put([restart, iteration], population)
                 }
             }
         }
