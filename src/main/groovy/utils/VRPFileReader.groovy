@@ -21,6 +21,7 @@ class VRPFileReader {
     private static final String COORD_SECTION_HEADER = "COOR"
     private static final String DEMAND_SECTION_HEADER = "DEMA"
     private static final String DEPOT_SECTION_HEADER = "DEPO"
+    private static final String EOF_HEADER = "EOF"
     private static final Integer ID_INDEX = 0
     private static final Integer VALUE_INDEX = 1
     private static final Integer X_COORD_INDEX = 1
@@ -61,7 +62,7 @@ class VRPFileReader {
                     inDemandSection = true;
                     inCoordinatesSection = false;
                     inDepotSection = false;
-                } else if (entry.equals("EOF") || entry.equals("-1")) {
+                } else if (entry.equals(EOF_HEADER) || entry.equals("-1")) {
                     inDemandSection = false;
                     inCoordinatesSection = false;
                     inDepotSection = false;

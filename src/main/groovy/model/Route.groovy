@@ -12,7 +12,7 @@ class Route {
     }
 
     void addCity(City city) {
-        cities.plus(cities.indexOf(cities.last()) - 1, [city])
+        cities = cities.subList(0, cities.size()-1) + [city] + cities.last()
     }
 
     public Double getCost() {
@@ -24,6 +24,19 @@ class Route {
             return 0
         }
         return cities.head().distanceTo(cities.tail().head()) + getTotalCostInternal(cities.tail())
+    }
+
+    @Override
+    String toString() {
+        if (!cities.empty) {
+            String result = "["
+            cities.each {
+                result << it.id + ", "
+            }
+            result.substring(0, result.length() - 2) << "]"
+        }
+
+        "This route has no cities."
     }
 }
 
