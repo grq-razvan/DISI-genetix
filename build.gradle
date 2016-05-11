@@ -16,4 +16,5 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'org.apache.commons:commons-math3:3.6'
+    testCompile 'junit:junit:4.12'
 }

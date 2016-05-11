@@ -5,7 +5,16 @@ package model
  */
 class Route {
     City depot
-    List<City> cities = [depot, depot]
+    List<City> cities = []
+
+    Route() {
+        initializeCities()
+    }
+
+    Route(City depot) {
+        this.depot = depot
+        cities += [depot, depot]
+    }
 
     boolean isValid(Integer maxDistance) {
         !cities.empty && cost <= maxDistance
@@ -26,6 +35,9 @@ class Route {
         return cities.head().distanceTo(cities.tail().head()) + getTotalCostInternal(cities.tail())
     }
 
+    public getLength() {
+        return cities.size()
+    }
     @Override
     String toString() {
         if (!cities.empty) {
@@ -37,6 +49,12 @@ class Route {
         }
 
         "This route has no cities."
+    }
+
+    private void initializeCities() {
+        if (depot && cities.empty) {
+            cities = [depot, depot]
+        }
     }
 }
 
