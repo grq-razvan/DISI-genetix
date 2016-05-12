@@ -31,10 +31,10 @@ class GeneticAlgorithmSolution {
 
     static Map generationMap() {
         def solutionMap = [:]
-        Config.restarts.each { restart ->
+        Config.RESTARTS.each { restart ->
             restart.times {
                 List<Solution> population = initializePopulation()
-                Config.iterations.each { iteration ->
+                Config.ITERATIONS.each { iteration ->
                     iteration.times {
                         List<Solution> parents = parentSelection(population)
                         List<Solution> offspring = variation(parents)
