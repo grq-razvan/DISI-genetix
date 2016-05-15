@@ -1,8 +1,7 @@
 package solution
 
 import configuration.Config
-import model.City
-import model.Route
+import generator.RandomSolutionGenerator
 import model.Solution
 import utils.VRPFileReader
 
@@ -11,28 +10,9 @@ import utils.VRPFileReader
  */
 class VRPSolver {
 
-    def static generateSolutions() {
-        def listListSolutions = []
-        VRPFileReader.readInputFiles().each { data ->
-            City depot = data.cities.find { city -> city.depot }
-            data.cities.remove(depot)
-            List<Solution> population = []
-            Config.POPULATION_SIZE.times {
-                Solution solution = new Solution()
-                Collections.shuffle(data.cities)
-                List<City> tempCities = data.cities.collect()
-                Iterator<City> currentCity = tempCities.iterator()
-                while (!tempCities.empty) {
-                    Route route = new Route(depot)
-                    while (route.isValid(data.distance.intValue()))
-                        if (currentCity.hasNext()) {
-                            route.addCity(currentCity.next())
-                        }
-                    solution.addRoute(route)
-                }
-                population.add(solution)
-            }
-            listListSolutions += population
+    def static List<List<Solution>> generateSolutions() {
+        VRPFileReader.readInputFiles().collect { data ->
+            RandomSolutionGenerator.nextBatchSolutions(data, Config.POPULATION_SIZE)
         }
     }
 }
