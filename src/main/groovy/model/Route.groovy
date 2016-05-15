@@ -16,8 +16,8 @@ class Route {
         cities += [depot, depot]
     }
 
-    boolean isValid(Integer maxDistance) {
-        !cities.empty && cost <= maxDistance
+    boolean isValid(Double maxDistance) {
+        !cities.empty && getCost() <= maxDistance
     }
 
     void addCity(City city) {
@@ -26,6 +26,10 @@ class Route {
 
     public Double getCost() {
         getTotalCostInternal(cities)
+    }
+
+    public City getLastCity() {
+        return cities.get(cities.size() - 2)
     }
 
     private Double getTotalCostInternal(List<City> cities) {

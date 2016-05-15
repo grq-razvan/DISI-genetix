@@ -20,6 +20,10 @@ class Solution implements Chromosome {
         return totalCost < otherSolution.totalCost
     }
 
+    public List<City> getCities() {
+        return [routes.first().cities.first()] + routes.cities.flatten().unique()
+    }
+
 
     @Override
     public String toString() {
