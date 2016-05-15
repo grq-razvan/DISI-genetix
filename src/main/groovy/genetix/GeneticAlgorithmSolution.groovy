@@ -10,8 +10,8 @@ import utils.GeneticUtils
  */
 class GeneticAlgorithmSolution {
 
-    static List<Solution> initializePopulation(int i) {
-        return VRPSolver.generateSolutions().get(i)
+    static Map<Integer, List<Solution>> initializePopulation() {
+        return VRPSolver.generateSolutions()
     }
 
     static List<Solution> parentSelection(List<Solution> population) {
@@ -30,18 +30,19 @@ class GeneticAlgorithmSolution {
         GeneticUtils.survivalOfTheFitest(newGeneration)
     }
 
-    static Map generationMap(int i) {
+    static Map generationMap() {
         def solutionMap = [:]
         Config.RESTARTS.each { restart ->
             restart.times {
-                List<Solution> population = initializePopulation(i)
-                Config.ITERATIONS.each { iteration ->
-                    iteration.times {
-                        List<Solution> parents = parentSelection(population)
-                        List<Solution> offspring = variation(parents)
-                        population = selectOffspring(offspring)
+                initializePopulation().eachWithIndex { population, fileIndex ->
+                    Config.ITERATIONS.each { iteration ->
+                        iteration.times {
+                            List<Solution> parents = parentSelection(population.value)
+                            List<Solution> offspring = variation(parents)
+                            population = selectOffspring(offspring)
+                        }
                     }
-                    solutionMap.put([restart, iteration], population)
+                    solutionMap.put([restart, fileIndex], population)
                 }
             }
         }
