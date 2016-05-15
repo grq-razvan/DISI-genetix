@@ -7,12 +7,12 @@ import model.Solution
  */
 class GeneticUtils {
 
-    public static Solution mutate(Solution chromosome) {
-        return null
+    public static void mutate(Solution chromosome) {
+
     }
 
-    public static List<Solution> cross(List<Solution> chromosomes) {
-        return []
+    public static void cross(List<Solution> chromosomes) {
+
     }
 
     public static List<Solution> survivalOfTheFitest(List<Solution> population) {

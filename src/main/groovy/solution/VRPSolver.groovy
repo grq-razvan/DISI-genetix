@@ -3,6 +3,7 @@ package solution
 import configuration.Config
 import generator.RandomSolutionGenerator
 import model.Solution
+import model.VRPData
 import utils.VRPFileReader
 
 /**
@@ -10,9 +11,11 @@ import utils.VRPFileReader
  */
 class VRPSolver {
 
-    def static List<List<Solution>> generateSolutions() {
-        VRPFileReader.readInputFiles().collect { data ->
-            RandomSolutionGenerator.nextBatchSolutions(data, Config.POPULATION_SIZE)
+    def static Map<Integer, List<Solution>> generateSolutions() {
+        Map<Integer, List<Solution>> solution = [:]
+        VRPFileReader.readInputFiles().eachWithIndex { VRPData entry, Integer i ->
+            solution.put(i, RandomSolutionGenerator.nextBatchSolutions(entry, Config.POPULATION_SIZE))
         }
+        return solution
     }
 }
