@@ -13,16 +13,24 @@ class RandomSolutionGenerator {
 
     public static Solution nextSolution(VRPData data) {
         Solution solution = new Solution()
-        List<City> cities = data.collect()
+        List<City> cities = data.cities.collect()
+        City depot = cities.remove(0)
         Collections.shuffle(cities)
         RandomDataGenerator random = new RandomDataGenerator()
+
         while (!cities.empty) {
-            Route route = new Route()
-            while (route.isValid(data.capacity)) {
-                int randomCityIndex = cities.size() - 1 != 0 ? random.nextInt(0, cities.size() - 1) : 0
-                City currentCity = cities.get(randomCityIndex)
-                if (route.cost + route.lastCity.distanceTo(currentCity) <= data.distance) {
+            Route route = new Route(depot)
+            while (route.isValid(data.distance, data.capacity) && !cities.empty) {
+                City currentCity = cities.get(0)
+
+                Route msodfaa = new Route(route)
+                msodfaa.addCity(currentCity)
+
+                if (msodfaa.isValid(data.distance, data.capacity)) {
                     route.addCity(currentCity)
+                    cities.remove(0)
+                } else {
+                    break
                 }
             }
             solution.addRoute(route)

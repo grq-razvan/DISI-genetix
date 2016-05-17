@@ -21,7 +21,7 @@ class Solution implements Chromosome {
     }
 
     public List<City> getCities() {
-        return [routes.first().cities.first()] + routes.cities.flatten().unique()
+        return routes.cities.flatten().unique() as List<City>
     }
 
 

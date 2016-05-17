@@ -11,13 +11,22 @@ class Route {
         initializeCities()
     }
 
+    Route(Route route) {
+        this.depot = route.depot
+        this.cities = route.cities
+    }
+
     Route(City depot) {
         this.depot = depot
         cities += [depot, depot]
     }
 
-    boolean isValid(Double maxDistance) {
-        !cities.empty && getCost() <= maxDistance
+    boolean isValid(Double maxDistance, Double maxCapacity) {
+        !cities.empty && getCost() <= maxDistance && getUsedCapacity() <= maxCapacity
+    }
+
+    Integer getUsedCapacity() {
+        (Integer) cities.sum { City city -> city.demand }
     }
 
     void addCity(City city) {
