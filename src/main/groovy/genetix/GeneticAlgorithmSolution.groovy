@@ -31,19 +31,19 @@ class GeneticAlgorithmSolution {
         GParsPool.withPool {
             Config.RESTARTS.eachParallel { restart ->
                 restart.times {
-                    initializePopulation().each { population ->
-                        def newPopulation = population.value
-                        Config.ITERATIONS.each { iteration ->
-                            iteration.times { genCount ->
-                                List<Solution> parents = parentSelection(newPopulation)
-                                parents.each { it.generationCount = genCount }
-                                List<Solution> offspring = variation(parents)
-                                newPopulation = offspring + parents
+                    GParsPool.withPool {
+                        initializePopulation().eachParallel { population ->
+                            def newPopulation = population.value
+                            Config.ITERATIONS.each { iteration ->
+                                iteration.times { genCount ->
+                                    List<Solution> parents = parentSelection(newPopulation)
+                                    parents.each { it.generationCount = genCount }
+                                    List<Solution> offspring = variation(parents)
+                                    newPopulation = offspring + parents
+                                }
+                                println """${population.key}-${restart}-${iteration}"""
+                                VRPFileWriter.writeSolutionToFile("""${population.key}-${restart}-${iteration}""", newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
                             }
-                            println """${population.key}-${restart}-${iteration}"""
-                            VRPFileWriter.writeSolutionToFile("""${population.key}-${restart}-${
-                                iteration
-                            }""", newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
                         }
                     }
                 }
