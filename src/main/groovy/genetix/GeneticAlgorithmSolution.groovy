@@ -1,11 +1,9 @@
 package genetix
 
 import configuration.Config
-import groovyx.gpars.GParsPool
 import model.Solution
 import solution.VRPSolver
 import utils.GeneticUtils
-import utils.VRPFileWriter
 
 /**
  * Uncreated by stefangrecu on 11/05/16.
