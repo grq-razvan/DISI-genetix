@@ -4,6 +4,7 @@ import configuration.Config
 import model.Solution
 import solution.VRPSolver
 import utils.GeneticUtils
+import utils.VRPFileWriter
 
 /**
  * Uncreated by stefangrecu on 11/05/16.
@@ -25,7 +26,7 @@ class GeneticAlgorithmSolution {
         }
     }
 
-    static Map generationMap() {
+    static void generationMap() {
         def solutionMap = [:]
         Config.RESTARTS.each { restart ->
             restart.times {
@@ -38,14 +39,13 @@ class GeneticAlgorithmSolution {
                             List<Solution> offspring = variation(parents)
                             newPopulation = offspring + parents
                         }
-                        solutionMap.put(["""${population.key}-${restart}-${
+                        VRPFileWriter.writeSolutionToFile("""${population.key}-${restart}-${
                             iteration
-                        }"""], newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
+                        }""", newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
                     }
                 }
             }
         }
-        return solutionMap
     }
 
 }
