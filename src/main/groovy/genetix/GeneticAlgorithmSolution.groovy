@@ -28,10 +28,11 @@ class GeneticAlgorithmSolution {
     static void generationMap() {
         GParsPool.withPool {
             Config.RESTARTS.eachParallel { restart ->
+                def previousPopulation = []
                 restart.times {
                     GParsPool.withPool {
                         initializePopulation().eachParallel { population ->
-                            def newPopulation = population.value
+                            def newPopulation = previousPopulation + population.value
                             Config.ITERATIONS.each { iteration ->
                                 iteration.times { genCount ->
                                     List<Solution> parents = parentSelection(newPopulation)
@@ -39,8 +40,10 @@ class GeneticAlgorithmSolution {
                                     List<Solution> offspring = variation(parents)
                                     newPopulation = offspring + parents
                                 }
-                                println """${population.key}-${restart}-${iteration}"""
-                                VRPFileWriter.writeSolutionToFile("""${population.key}-${restart}-${iteration}""", newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
+                                def name = """${population.key}-${restart}-${iteration}"""
+                                println name
+                                previousPopulation = newPopulation.sort(true) { a, b -> a.totalCost <=> b.totalCost }
+                                VRPFileWriter.writeSolutionToFile(name, newPopulation.take(Config.POPULATION_SIZE))
                             }
                         }
                     }
@@ -48,5 +51,4 @@ class GeneticAlgorithmSolution {
             }
         }
     }
-
 }
