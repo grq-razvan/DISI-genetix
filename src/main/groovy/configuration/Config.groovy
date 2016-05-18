@@ -17,7 +17,7 @@ class Config {
     static final Integer POPULATION_SIZE = 30 */
 
     static final List<String> INPUT_PATHS = ['test-data/Golden_01.vrp']
-    static final List<Integer> RESTARTS = (1..5).collect()
-    static final List<Integer> ITERATIONS = (1..10).collect { (int) FastMath.pow(2.0, it) }
+    static final List<Integer> RESTARTS = [1]
+    static final List<Integer> ITERATIONS = [256]
     static final Integer POPULATION_SIZE = 30
 }

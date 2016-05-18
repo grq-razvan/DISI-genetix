@@ -38,4 +38,3 @@ import utils.VRPFileWriter
 //}
 def x = GeneticAlgorithmSolution.generationMap()
 println x
-

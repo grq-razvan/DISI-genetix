@@ -17,7 +17,8 @@ class GeneticUtils {
         } else return chromosome
     }
 
-    public static List<Solution> cross(List<Solution> chromosomes) {
+    public
+    static List<Solution> cross(List<Solution> chromosomes, Integer randomIndexOne = null, Integer randomIndexTwo = null) {
         List<Solution> solutionList = []
         RandomDataGenerator random = new RandomDataGenerator()
 
@@ -32,8 +33,8 @@ class GeneticUtils {
                 it != two.routes.cities.flatten().first()
             } as List<City>
 
-            int randomIndex2 = random.nextInt(0, oneFlatten.size())
-            int randomIndex1 = random.nextInt(0, randomIndex2)
+            int randomIndex2 = randomIndexTwo ?: random.nextInt(0, oneFlatten.size())
+            int randomIndex1 = randomIndexOne ?: random.nextInt(0, randomIndex2)
 
             def oneMiddle = oneFlatten.subList(randomIndex1, randomIndex2)
             def twoMiddle = twoFlatten.subList(randomIndex1, randomIndex2)
@@ -45,11 +46,11 @@ class GeneticUtils {
                 !twoMiddle.contains(it)
             }
 
-            def childOne = capeteOne.subList(0, randomIndex1) + oneMiddle + capeteOne.subList(randomIndex1, capeteOne.size())
-            def childTwo = capeteTwo.subList(0, randomIndex1) + twoMiddle + capeteTwo.subList(randomIndex1, capeteTwo.size())
+            def childOne = capeteOne.subList(capeteOne.size() - randomIndex1, capeteOne.size()) + oneMiddle + capeteOne.subList(0, randomIndex1)
+            def childTwo = capeteTwo.subList(capeteTwo.size() - randomIndex1, capeteTwo.size()) + twoMiddle + capeteTwo.subList(0, randomIndex1)
 
-            solutionList.add(Do.Solution(one, childOne))
-            solutionList.add(Do.Solution(two, childTwo))
+            solutionList.add(Do.Solution(one, childOne.collect()))
+            solutionList.add(Do.Solution(two, childTwo.collect()))
         }
         solutionList
     }

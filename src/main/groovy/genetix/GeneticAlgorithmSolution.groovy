@@ -42,7 +42,7 @@ class GeneticAlgorithmSolution {
                             newPopulation = offspring + parents
                         }
                     }
-                    solutionMap.put([restart, fileIndex], newPopulation)
+                    solutionMap.put([restart, fileIndex], newPopulation.sort { a, b -> a.totalCost <=> b.totalCost})
                 }
             }
         }

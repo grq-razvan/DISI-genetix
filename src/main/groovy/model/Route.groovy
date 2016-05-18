@@ -59,6 +59,7 @@ class Route {
                 append """This route has no cities.\n"""
             } else {
                 append """Route cost: ${this.cost}\n"""
+                append """Route capacity: ${this.usedCapacity}\n"""
                 append """Route cities: ${this.cities.collect { city -> city.id }}"""
             }
             return it
