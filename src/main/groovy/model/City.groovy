@@ -32,4 +32,10 @@ class City {
             return it
         }.toString()
     }
+
+    @Override
+    public boolean equals(Object o) {
+        City city = (City) o
+        return city.id == this.id
+    }
 }
