@@ -10,7 +10,7 @@ import utils.GeneticUtils
  */
 class GeneticAlgorithmSolution {
 
-    static Map<Integer, List<Solution>> initializePopulation() {
+    static Map<String, List<Solution>> initializePopulation() {
         return VRPSolver.generateSolutions()
     }
 
@@ -29,7 +29,7 @@ class GeneticAlgorithmSolution {
         def solutionMap = [:]
         Config.RESTARTS.each { restart ->
             restart.times {
-                initializePopulation().eachWithIndex { population, fileIndex ->
+                initializePopulation().each { population ->
                     def newPopulation = population.value
                     Config.ITERATIONS.each { iteration ->
                         iteration.times { genCount ->
@@ -38,8 +38,10 @@ class GeneticAlgorithmSolution {
                             List<Solution> offspring = variation(parents)
                             newPopulation = offspring + parents
                         }
+                        solutionMap.put(["""${population.key}-${restart}-${
+                            iteration
+                        }"""], newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
                     }
-                    solutionMap.put([restart, fileIndex], newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
                 }
             }
         }

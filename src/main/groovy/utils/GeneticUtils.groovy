@@ -9,11 +9,29 @@ import org.apache.commons.math3.random.RandomDataGenerator
  */
 class GeneticUtils {
 
+    static RandomDataGenerator random = new RandomDataGenerator()
+
     public static Solution mutate(Solution chromosome) {
         if (chromosome.mutate()) {
-            def cities = chromosome.cities
-            Collections.shuffle(cities)
-            return Do.Solution(chromosome, cities)
+            def cities = chromosome.cities.collect()
+            cities.remove(0)
+
+            def randomIndex2 = random.nextInt(1, cities.size() - 1)
+            def randomIndex1 = random.nextInt(0, randomIndex2 - 1)
+
+            def firstIndex = cities.indices.first()
+            def lastIndex = cities.indices.last()
+
+            if (randomIndex1 == firstIndex && randomIndex2 == lastIndex) {
+                def result = cities.collect()
+                Collections.swap(result, firstIndex, lastIndex)
+                Solution sol = Do.Solution(chromosome, result.reverse())
+                return sol
+            }
+
+            def result = cities.subList(firstIndex, randomIndex1 + 1) + cities.subList(randomIndex1 + 1, randomIndex2).reverse() + cities.subList(randomIndex2, lastIndex + 1)
+            Solution sol = Do.Solution(chromosome, result)
+            return sol
         } else return chromosome
     }
 
@@ -61,7 +79,7 @@ class GeneticUtils {
 
     public static List<Solution> survivalOfTheFitest(List<Solution> population) {
         population
-                .sort { a, b -> b.totalCost <=> a.totalCost }
+                .sort { a, b -> a.totalCost <=> b.totalCost }
                 .take(population.size() / 2 as int)
     }
 }

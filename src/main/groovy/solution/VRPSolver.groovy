@@ -11,11 +11,11 @@ import utils.VRPFileReader
  */
 class VRPSolver {
 
-    def static Map<Integer, List<Solution>> generateSolutions() {
-        Map<Integer, List<Solution>> solution = [:]
+    def static Map<String, List<Solution>> generateSolutions() {
+        Map<String, List<Solution>> solution = [:]
         VRPFileReader.readInputFiles().eachWithIndex { VRPData entry, Integer i ->
-            solution.put(i, RandomSolutionGenerator.nextBatchSolutions(entry, Config.POPULATION_SIZE))
+            solution.put(entry.name, RandomSolutionGenerator.nextBatchSolutions(entry, Config.POPULATION_SIZE))
         }
-        return solution
+        solution
     }
 }

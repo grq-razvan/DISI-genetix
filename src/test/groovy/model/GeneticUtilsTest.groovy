@@ -48,7 +48,6 @@ class GeneticUtilsTest {
         print otherChildren[1].cities
         println()
 
-        println("###############################")
         def lastChildren = GeneticUtils.cross(solutions.collect(), 3, 4)
         print lastChildren[0].cities
         println()
