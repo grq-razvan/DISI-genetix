@@ -32,9 +32,10 @@ class GeneticAlgorithmSolution {
             Config.RESTARTS.eachParallel { restart ->
                 List<Solution> previousPopulation = []
                 restart.times {
+                    List<Solution> bestAtThisRestart = []
                     GParsPool.withPool {
                         initializePopulation().eachParallel { Map.Entry<String, List<Solution>> population ->
-                            List<Solution> newPopulation = previousPopulation + population.value
+                            List<Solution> newPopulation = previousPopulation + population.value + bestAtThisRestart
                             Config.ITERATIONS.each { iteration ->
                                 iteration.times { genCount ->
                                     List<Solution> parents = parentSelection(newPopulation)
@@ -44,9 +45,11 @@ class GeneticAlgorithmSolution {
                                 }
                                 def name = """${population.key}-${restart}-${iteration}"""
                                 println name
-                                previousPopulation = newPopulation.sort(true) { a, b -> a.totalCost <=> b.totalCost }
+                                bestAtThisRestart = newPopulation.sort(true) { a, b -> a.totalCost <=> b.totalCost }
                                 VRPFileWriter.writeSolutionToFile(name, newPopulation.take(Config.POPULATION_SIZE))
                             }
+                            previousPopulation += bestAtThisRestart
+                            previousPopulation.sort(true) { a, b -> a.totalCost <=> b.totalCost }
                         }
                     }
                 }
