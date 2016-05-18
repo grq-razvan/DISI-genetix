@@ -26,15 +26,16 @@ import utils.VRPFileWriter
     VRPFileWriter.writeSolutionToFile(solution, "testfile.txt")
     //print it
 } */
-
-Config.RESTARTS.each { i ->
-    Map<Integer, List<Solution>> solutionsMap = GeneticAlgorithmSolution.initializePopulation()
-
-    solutionsMap.each { k, v ->
-        println i
-        println k
-        println v
-    }
-}
-
+//
+//Config.RESTARTS.each { i ->
+//    Map<Integer, List<Solution>> solutionsMap = GeneticAlgorithmSolution.initializePopulation()
+//
+//    solutionsMap.each { k, v ->
+//        println i
+//        println k
+//        println v
+//    }
+//}
+def x = GeneticAlgorithmSolution.generationMap()
+println x
 

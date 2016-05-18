@@ -19,11 +19,10 @@ class GeneticAlgorithmSolution {
     }
 
     static List<Solution> variation(List<Solution> parents) {
-        GeneticUtils.cross(parents)
-        parents.each {
+        def newParents = GeneticUtils.cross(parents)
+        newParents.collect {
             GeneticUtils.mutate(it)
         }
-        return parents.collect()
     }
 
     static List<Solution> selectOffspring(List<Solution> newGeneration) {
@@ -35,14 +34,15 @@ class GeneticAlgorithmSolution {
         Config.RESTARTS.each { restart ->
             restart.times {
                 initializePopulation().eachWithIndex { population, fileIndex ->
+                    def newPopulation = population.value
                     Config.ITERATIONS.each { iteration ->
                         iteration.times {
-                            List<Solution> parents = parentSelection(population.value)
+                            List<Solution> parents = parentSelection(newPopulation)
                             List<Solution> offspring = variation(parents)
-                            population = selectOffspring(offspring)
+                            newPopulation = selectOffspring(offspring)
                         }
                     }
-                    solutionMap.put([restart, fileIndex], population)
+                    solutionMap.put([restart, fileIndex], newPopulation)
                 }
             }
         }

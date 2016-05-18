@@ -16,7 +16,9 @@ class RandomSolutionGenerator {
         List<City> cities = data.cities.collect()
         City depot = cities.remove(0)
         Collections.shuffle(cities)
-        RandomDataGenerator random = new RandomDataGenerator()
+        solution.maxDistance = data.distance
+        solution.maxCapacity = data.capacity
+        solution.depot = depot
 
         while (!cities.empty) {
             Route route = new Route(depot)
@@ -40,7 +42,7 @@ class RandomSolutionGenerator {
     }
 
     public static List<Solution> nextBatchSolutions(VRPData data, int resultLength) {
-        resultLength.collect { nextSolution(data) }
+        (0..<resultLength).collect { nextSolution(data) }
     }
 
 }

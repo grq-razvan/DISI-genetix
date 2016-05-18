@@ -7,6 +7,9 @@ import genetix.Chromosome
  */
 class Solution implements Chromosome {
     List<Route> routes = []
+    Integer maxDistance
+    Integer maxCapacity
+    City depot
 
     public void addRoute(Route route) {
         routes.add(route)
@@ -29,7 +32,7 @@ class Solution implements Chromosome {
     public String toString() {
         new StringBuilder().with {
             routes.eachWithIndex { route, index ->
-                append """Route ${index} \n"""
+                append """\n Route ${index} \n"""
                 append route.toString()
             }
             return it
