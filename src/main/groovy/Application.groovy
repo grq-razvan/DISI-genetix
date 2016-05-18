@@ -1,4 +1,3 @@
 import genetix.GeneticAlgorithmSolution
-import utils.VRPFileWriter
 
-VRPFileWriter.writeSolutionToFile(GeneticAlgorithmSolution.generationMap())
+GeneticAlgorithmSolution.generationMap()

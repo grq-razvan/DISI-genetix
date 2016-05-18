@@ -27,7 +27,6 @@ class GeneticAlgorithmSolution {
     }
 
     static void generationMap() {
-        def solutionMap = [:]
         Config.RESTARTS.each { restart ->
             restart.times {
                 initializePopulation().each { population ->
@@ -39,6 +38,7 @@ class GeneticAlgorithmSolution {
                             List<Solution> offspring = variation(parents)
                             newPopulation = offspring + parents
                         }
+                        println """${population.key}-${restart}-${iteration}"""
                         VRPFileWriter.writeSolutionToFile("""${population.key}-${restart}-${
                             iteration
                         }""", newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
