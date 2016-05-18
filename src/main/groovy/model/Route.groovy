@@ -38,7 +38,12 @@ class Route {
     }
 
     public City getLastCity() {
+        if (cities.size() == 2) { return cities.last() }
         return cities.get(cities.size() - 2)
+    }
+
+    public City getFirstCity() {
+        return cities.get(1)
     }
 
     private Double getTotalCostInternal(List<City> cities) {

@@ -1,3 +1,4 @@
 import genetix.GeneticAlgorithmSolution
 
-GeneticAlgorithmSolution.generationMap()
+//GeneticAlgorithmSolution.generationMap()
+GeneticAlgorithmSolution.generationMap(GeneticAlgorithmSolution.initializePopulationGreedy())

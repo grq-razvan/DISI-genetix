@@ -1,6 +1,7 @@
 package solution
 
 import configuration.Config
+import generator.GreedySolutionGenerator
 import generator.RandomSolutionGenerator
 import model.Solution
 import model.VRPData
@@ -15,6 +16,14 @@ class VRPSolver {
         Map<String, List<Solution>> solution = [:]
         VRPFileReader.readInputFiles().eachWithIndex { VRPData entry, Integer i ->
             solution.put(entry.name, RandomSolutionGenerator.nextBatchSolutions(entry, Config.POPULATION_SIZE))
+        }
+        solution
+    }
+
+    static Map<String, List<Solution>> generateGreedySolutions() {
+        Map<String, List<Solution>> solution = [:]
+        VRPFileReader.readInputFiles().eachWithIndex { VRPData entry, Integer i ->
+            solution.put(entry.name, GreedySolutionGenerator.nextBatchSolutions(entry, Config.POPULATION_SIZE))
         }
         solution
     }
