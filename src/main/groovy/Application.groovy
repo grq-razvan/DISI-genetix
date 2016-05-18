@@ -1,10 +1,4 @@
-import configuration.Config
 import genetix.GeneticAlgorithmSolution
-import javafx.geometry.Point2D
-import model.City
-import model.Route
-import model.Solution
-import utils.VRPFileReader
 import utils.VRPFileWriter
 
 /* VRPFileReader.readInputFiles().each {
@@ -37,4 +31,4 @@ import utils.VRPFileWriter
 //    }
 //}
 def x = GeneticAlgorithmSolution.generationMap()
-println x
+VRPFileWriter.writeSolutionToFile(x)

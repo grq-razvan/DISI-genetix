@@ -30,8 +30,8 @@ class Solution implements Chromosome {
             append "MAX CAPACITY: ${maxCapacity}" append '\n'
             append "MAX DISTANCE: ${maxDistance}" append '\n'
             routes.eachWithIndex { route, index ->
-                append "ROUTE ${index}" append '\n'
-                append route.label
+                append "\tROUTE ${index}" append '\n'
+                append route.toString()
             }
             it
         }.toString()

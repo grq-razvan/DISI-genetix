@@ -29,7 +29,7 @@ class VRPFileReader {
 
     public static List<VRPData> readInputFiles() {
         List<VRPData> data = []
-        Config.INPUT_PATHS.parallelStream().forEachOrdered { filename ->
+        Config.FLK_INPUT.parallelStream().forEachOrdered { filename ->
             boolean inCoordinatesSection = false;
             boolean inDemandSection = false;
             boolean inDepotSection = false;

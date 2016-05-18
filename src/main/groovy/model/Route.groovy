@@ -55,10 +55,9 @@ class Route {
     @Override
     String toString() {
         new StringBuilder().with {
-            append "Depot: ${depot.id}" append '\n'
-            append "Cities: [${cities.id.join(", ")}]" append '\n'
-            append "Cost: ${cost}" append '\n'
-            append "Capacity: ${usedCapacity}" append '\n'
+            append "\tCities: [${cities.id.join(", ")}]" append '\n'
+            append "\tCost: ${cost}" append '\n'
+            append "\tCapacity: ${usedCapacity}" append '\n'
             it
         }.toString()
     }
