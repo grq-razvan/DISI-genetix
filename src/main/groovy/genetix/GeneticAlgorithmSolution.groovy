@@ -15,18 +15,18 @@ class GeneticAlgorithmSolution {
     }
 
     static List<Solution> parentSelection(List<Solution> population) {
-        GeneticUtils.survivalOfTheFitest(population)
+        GeneticUtils.survivalOfTheFitest(population.collect())
     }
 
     static List<Solution> variation(List<Solution> parents) {
-        def newParents = GeneticUtils.cross(parents)
+        def newParents = GeneticUtils.cross(parents.collect())
         newParents.collect {
             GeneticUtils.mutate(it)
         }
     }
 
     static List<Solution> selectOffspring(List<Solution> newGeneration) {
-        GeneticUtils.survivalOfTheFitest(newGeneration)
+        GeneticUtils.survivalOfTheFitest(newGeneration.collect())
     }
 
     static Map generationMap() {
@@ -39,7 +39,7 @@ class GeneticAlgorithmSolution {
                         iteration.times {
                             List<Solution> parents = parentSelection(newPopulation)
                             List<Solution> offspring = variation(parents)
-                            newPopulation = selectOffspring(offspring)
+                            newPopulation = offspring + parents
                         }
                     }
                     solutionMap.put([restart, fileIndex], newPopulation)

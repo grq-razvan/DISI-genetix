@@ -4,7 +4,6 @@ import model.City
 import model.Route
 import model.Solution
 import model.VRPData
-import org.apache.commons.math3.random.RandomDataGenerator
 
 /**
  * Uncreated by stefangrecu on 15/05/16.
@@ -12,23 +11,26 @@ import org.apache.commons.math3.random.RandomDataGenerator
 class RandomSolutionGenerator {
 
     public static Solution nextSolution(VRPData data) {
-        Solution solution = new Solution()
         List<City> cities = data.cities.collect()
         City depot = cities.remove(0)
         Collections.shuffle(cities)
-        solution.maxDistance = data.distance
-        solution.maxCapacity = data.capacity
-        solution.depot = depot
+
+        Solution solution = new Solution().with { sol ->
+            sol.maxDistance = data.distance
+            sol.maxCapacity = data.capacity
+            sol.depot = depot
+            sol
+        }
 
         while (!cities.empty) {
             Route route = new Route(depot)
-            while (route.isValid(data.distance, data.capacity) && !cities.empty) {
-                City currentCity = cities.get(0)
+            while (route.isValid(solution.maxDistance, solution.maxCapacity) && !cities.empty) {
+                City currentCity = cities.first()
 
                 Route msodfaa = new Route(route)
                 msodfaa.addCity(currentCity)
 
-                if (msodfaa.isValid(data.distance, data.capacity)) {
+                if (msodfaa.isValid(solution.maxDistance, solution.maxCapacity)) {
                     route.addCity(currentCity)
                     cities.remove(0)
                 } else {

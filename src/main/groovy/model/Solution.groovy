@@ -31,6 +31,8 @@ class Solution implements Chromosome {
     @Override
     public String toString() {
         new StringBuilder().with {
+            append """SOLUTION \n"""
+            append """TOTAL COST ${totalCost} \n"""
             routes.eachWithIndex { route, index ->
                 append """\n Route ${index} \n"""
                 append route.toString()

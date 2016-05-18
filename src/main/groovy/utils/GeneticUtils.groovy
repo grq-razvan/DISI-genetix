@@ -2,6 +2,7 @@ package utils
 
 import model.City
 import model.Solution
+import org.apache.commons.math3.random.RandomDataGenerator
 
 /**
  * Uncreated by stefangrecu on 11/05/16.
@@ -9,12 +10,16 @@ import model.Solution
 class GeneticUtils {
 
     public static Solution mutate(Solution chromosome) {
-        chromosome
+        if (chromosome.mutate()) {
+            def cities = chromosome.cities
+            Collections.shuffle(cities)
+            return Do.Solution(chromosome, cities)
+        } else return chromosome
     }
 
     public static List<Solution> cross(List<Solution> chromosomes) {
         List<Solution> solutionList = []
-        Random random = new Random()
+        RandomDataGenerator random = new RandomDataGenerator()
 
         while (chromosomes.size() > 1) {
             Solution one = chromosomes.remove(0)
@@ -27,8 +32,8 @@ class GeneticUtils {
                 it != two.routes.cities.flatten().first()
             } as List<City>
 
-            int randomIndex2 = random.nextInt(oneFlatten.size())
-            int randomIndex1 = random.nextInt(randomIndex2)
+            int randomIndex2 = random.nextInt(0, oneFlatten.size())
+            int randomIndex1 = random.nextInt(0, randomIndex2)
 
             def oneMiddle = oneFlatten.subList(randomIndex1, randomIndex2)
             def twoMiddle = twoFlatten.subList(randomIndex1, randomIndex2)
