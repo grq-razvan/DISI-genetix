@@ -1,9 +1,11 @@
 package genetix
 
 import configuration.Config
+import groovyx.gpars.GParsPool
 import model.Solution
 import solution.VRPSolver
 import utils.GeneticUtils
+import utils.VRPFileWriter
 
 /**
  * Uncreated by stefangrecu on 11/05/16.
@@ -28,11 +30,11 @@ class GeneticAlgorithmSolution {
     static void generationMap() {
         GParsPool.withPool {
             Config.RESTARTS.eachParallel { restart ->
-                def previousPopulation = []
+                List<Solution> previousPopulation = []
                 restart.times {
                     GParsPool.withPool {
-                        initializePopulation().eachParallel { population ->
-                            def newPopulation = previousPopulation + population.value
+                        initializePopulation().eachParallel { Map.Entry<String, List<Solution>> population ->
+                            List<Solution> newPopulation = previousPopulation + population.value
                             Config.ITERATIONS.each { iteration ->
                                 iteration.times { genCount ->
                                     List<Solution> parents = parentSelection(newPopulation)
