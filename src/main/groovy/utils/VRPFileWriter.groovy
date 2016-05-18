@@ -8,10 +8,8 @@ import org.apache.commons.io.FileUtils
  */
 class VRPFileWriter {
     public static void writeSolutionToFile(String name, List<Solution> solutions) {
-            File file = new File("src/main/resources/" + name + ".txt")
-            List<String> lines = solutions.collect { solution -> solution.label }
-            FileUtils.writeLines(file, lines)
+        File file = new File("rezultate/" + name + ".txt")
+        List<String> lines = solutions.collect { solution -> solution.label }
+        FileUtils.writeLines(file, lines)
     }
-
-
 }
