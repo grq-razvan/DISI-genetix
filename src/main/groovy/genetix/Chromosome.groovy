@@ -9,7 +9,7 @@ import org.apache.commons.math3.util.FastMath
 trait Chromosome {
 
     Integer generationCount
-    private static final MUTATION_PROBABILITY_THRESHOLD = 0.95
+    private static final MUTATION_PROBABILITY_THRESHOLD = 0.97
     private static final SURVIVAL_PROBABILITY_THRESHOLD = 0.52
     RandomDataGenerator randomDataGenerator = new RandomDataGenerator()
 
