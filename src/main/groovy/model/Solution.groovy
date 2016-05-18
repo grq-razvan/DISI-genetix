@@ -19,25 +19,30 @@ class Solution implements Chromosome {
         routes.cost.sum() as Double
     }
 
-    boolean isBetterThan(Solution otherSolution) {
-        return totalCost < otherSolution.totalCost
-    }
-
     public List<City> getCities() {
         return routes.cities.flatten().unique() as List<City>
     }
 
+    public String getLabel() {
+        new StringBuilder().with {
+            append "SOLUTION" append '\n'
+            append "TOTAL COST: ${totalCost}" append '\n'
+            append "MAX CAPACITY: ${maxCapacity}" append '\n'
+            append "MAX DISTANCE: ${maxDistance}" append '\n'
+            routes.eachWithIndex { route, index ->
+                append "ROUTE ${index}" append '\n'
+                append route.label
+            }
+            it
+        }.toString()
+    }
 
     @Override
     public String toString() {
         new StringBuilder().with {
-            append """SOLUTION \n"""
-            append """TOTAL COST ${totalCost} \n"""
-            routes.eachWithIndex { route, index ->
-                append """\n Route ${index} \n"""
-                append route.toString()
-            }
-            return it
+            append "Cost: ${totalCost}"
+            append """Cities: [${cities.id.join(", ")}]"""
+            it
         }.toString()
     }
 }

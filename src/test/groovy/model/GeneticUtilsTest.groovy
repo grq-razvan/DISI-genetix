@@ -35,18 +35,24 @@ class GeneticUtilsTest {
         }
         println()
 
-        def childs = GeneticUtils.cross(solutions, 2, 3)
+        def children = GeneticUtils.cross(solutions.collect(), 1, 3)
 
-        print "CHILD ONE: "
-        childs[0].cities.each {
-            print it.id + " "
-        }
+        print children[0].cities
+        println()
+        print children[1].cities
         println()
 
-        print "CHILD TWO: "
-        childs[1].cities.each {
-            print it.id + " "
-        }
+        def otherChildren = GeneticUtils.cross(solutions.collect(), 1, 4)
+        print otherChildren[0].cities
+        println()
+        print otherChildren[1].cities
+        println()
+
+        println("###############################")
+        def lastChildren = GeneticUtils.cross(solutions.collect(), 3, 4)
+        print lastChildren[0].cities
+        println()
+        print lastChildren[1].cities
         println()
     }
 }

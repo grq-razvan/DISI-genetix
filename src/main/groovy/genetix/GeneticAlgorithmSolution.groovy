@@ -25,10 +25,6 @@ class GeneticAlgorithmSolution {
         }
     }
 
-    static List<Solution> selectOffspring(List<Solution> newGeneration) {
-        GeneticUtils.survivalOfTheFitest(newGeneration.collect())
-    }
-
     static Map generationMap() {
         def solutionMap = [:]
         Config.RESTARTS.each { restart ->
@@ -36,13 +32,14 @@ class GeneticAlgorithmSolution {
                 initializePopulation().eachWithIndex { population, fileIndex ->
                     def newPopulation = population.value
                     Config.ITERATIONS.each { iteration ->
-                        iteration.times {
+                        iteration.times { genCount ->
                             List<Solution> parents = parentSelection(newPopulation)
+                            parents.each { it.generationCount = genCount }
                             List<Solution> offspring = variation(parents)
                             newPopulation = offspring + parents
                         }
                     }
-                    solutionMap.put([restart, fileIndex], newPopulation.sort { a, b -> a.totalCost <=> b.totalCost})
+                    solutionMap.put([restart, fileIndex], newPopulation.sort { a, b -> a.totalCost <=> b.totalCost })
                 }
             }
         }

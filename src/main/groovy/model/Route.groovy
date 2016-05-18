@@ -55,16 +55,23 @@ class Route {
     @Override
     String toString() {
         new StringBuilder().with {
-            if (cities.empty) {
-                append """This route has no cities.\n"""
-            } else {
-                append """Route cost: ${this.cost}\n"""
-                append """Route capacity: ${this.usedCapacity}\n"""
-                append """Route cities: ${this.cities.collect { city -> city.id }}"""
-            }
+            append "Depot: ${depot.id}" append '\n'
+            append "Cities: [${cities.id.join(", ")}]" append '\n'
+            append "Cost: ${cost}" append '\n'
+            append "Capacity: ${usedCapacity}" append '\n'
+            it
+        }.toString()
+    }
+
+    String getLabel() {
+        new StringBuilder().with {
+            append "Route" append '\n'
+            append "Depot:\n ${depot.label}" append '\n'
+            append "Cost: ${cost}" append '\n'
+            append "Capacity ${usedCapacity}" append '\n'
+            append "Cities:\n ${cities.label.join("\n")}"
             return it
         }.toString()
-
     }
 
     private void initializeCities() {

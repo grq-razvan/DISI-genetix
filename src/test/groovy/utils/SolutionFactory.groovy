@@ -20,6 +20,7 @@ class SolutionFactory {
         City cityThree = CityFactory.create(3, 29.63060, 4.69300, 0, false)
         City cityFour = CityFactory.create(4, 28.53170, 9.27050, 0, false)
         City cityFive = CityFactory.create(5, 26.73020, 13.61970, 0, false)
+        City citySix = CityFactory.create(6, 24.27050, 17.63360, 0, false)
 
         Route routeOne = new Route(cityOne)
         routeOne.addCity(cityTwo)
@@ -30,6 +31,7 @@ class SolutionFactory {
 
         Route routeThree = new Route(cityOne)
         routeThree.addCity(cityFive)
+        routeThree.addCity(citySix)
 
         Solution solution = new Solution()
 
@@ -50,6 +52,7 @@ class SolutionFactory {
         City cityThree = CityFactory.create(3, 29.63060, 4.69300, 0, false)
         City cityFour = CityFactory.create(4, 28.53170, 9.27050, 0, false)
         City cityFive = CityFactory.create(5, 26.73020, 13.61970, 0, false)
+        City citySix = CityFactory.create(6, 24.27050, 17.63360, 0, false)
 
         Route routeOne = new Route(cityOne)
         routeOne.addCity(cityFive)
@@ -59,6 +62,9 @@ class SolutionFactory {
         routeTwo.addCity(cityTwo)
         routeTwo.addCity(cityThree)
 
+        Route routeThree = new Route(cityOne)
+        routeThree.addCity(citySix)
+
         Solution solution = new Solution()
 
         solution.maxCapacity = maxCapacity
@@ -67,6 +73,7 @@ class SolutionFactory {
 
         solution.addRoute(routeOne)
         solution.addRoute(routeTwo)
+        solution.addRoute(routeThree)
 
         solution
     }

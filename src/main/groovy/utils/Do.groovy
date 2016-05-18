@@ -13,6 +13,7 @@ class Do {
         def solution = new Solution().with {
             maxDistance = oldSol.maxDistance
             maxCapacity = oldSol.maxCapacity
+            generationCount = oldSol.generationCount
             depot = oldSol.depot
             it
         }

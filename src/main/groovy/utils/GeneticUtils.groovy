@@ -39,15 +39,19 @@ class GeneticUtils {
             def oneMiddle = oneFlatten.subList(randomIndex1, randomIndex2)
             def twoMiddle = twoFlatten.subList(randomIndex1, randomIndex2)
 
-            def capeteOne = (oneFlatten.subList(randomIndex2, oneFlatten.size()) + oneFlatten.subList(0, randomIndex2)).findAll {
-                !twoMiddle.contains(it)
-            }
-            def capeteTwo = (twoFlatten.subList(randomIndex2, twoFlatten.size()) + twoFlatten.subList(0, randomIndex2)).findAll {
-                !oneMiddle.contains(it)
-            }
+            def capeteOne = (oneFlatten.subList(randomIndex2, oneFlatten.size()) + oneFlatten.subList(0, randomIndex2))
+                    .findAll { !twoMiddle*.id.contains(it.id) }
+            def capeteTwo = (twoFlatten.subList(randomIndex2, twoFlatten.size()) + twoFlatten.subList(0, randomIndex2))
+                    .findAll { !oneMiddle*.id.contains(it.id) }
 
-            def childOne = capeteOne.subList(capeteOne.size() - randomIndex1, capeteOne.size()) + twoMiddle + capeteOne.subList(0, randomIndex1 - (capeteOne.size() - randomIndex1))
-            def childTwo = capeteTwo.subList(capeteTwo.size() - randomIndex1, capeteTwo.size()) + oneMiddle + capeteTwo.subList(0, randomIndex1 - (capeteTwo.size() - randomIndex1))
+            def l1 = capeteOne.subList(oneFlatten.size() - randomIndex2, capeteOne.size())
+            def l2 = capeteOne.subList(0, oneFlatten.size() - randomIndex2)
+
+            def r1 = capeteTwo.subList(twoFlatten.size() - randomIndex2, capeteTwo.size())
+            def r2 = capeteTwo.subList(0, twoFlatten.size() - randomIndex2)
+
+            def childOne = l1 + twoMiddle + l2
+            def childTwo = r1 + oneMiddle + r2
 
             solutionList.add(Do.Solution(one, childOne.collect()))
             solutionList.add(Do.Solution(two, childTwo.collect()))

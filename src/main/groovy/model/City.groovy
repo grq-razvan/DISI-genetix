@@ -23,6 +23,10 @@ class City {
 
     @Override
     public String toString() {
+        id.toString()
+    }
+
+    public String getLabel() {
         new StringBuilder().with {
             append """City: ${id}\n"""
             append """Coords: (${coords.x}, ${coords.y})\n"""
@@ -31,11 +35,5 @@ class City {
             } else append """Demand: ${demand}\n"""
             return it
         }.toString()
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        City city = (City) o
-        return city.id == this.id
     }
 }

@@ -9,7 +9,7 @@ class VRPFileWriter {
     public static void writeSolutionToFile(Solution solution, String filePath) {
         new File(filePath).withWriter { out ->
             solution.routes.each {
-                out.println it
+                out.println it.label
             }
         }
     }
