@@ -11,7 +11,7 @@ import org.apache.commons.math3.random.RandomDataGenerator
  */
 class GreedySolutionGenerator {
 
-    RandomDataGenerator randomDataGenerator = new RandomDataGenerator()
+    static RandomDataGenerator randomDataGenerator = new RandomDataGenerator()
 
     public static Solution nextSolution(VRPData data, int startingPosition) {
         List<City> cities = data.cities.collect()
@@ -41,7 +41,7 @@ class GreedySolutionGenerator {
                     route.addCity(currentCity)
                     cities.remove(currentCity)
                 } else {
-                    while (!candidates.empty || !route.isValid(solution.maxDistance, solution.maxCapacity)) {
+                    if (!candidates.empty) {
                         City tempCity = candidates.first()
                         Route newTemp = new Route(route)
                         newTemp.addCity(tempCity)
